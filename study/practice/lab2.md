@@ -53,7 +53,7 @@ m1
 
 ​    1~9 의 벡터를 이용하여 matrix를 생성하고 출력한다.
 
-![img](\images\clip_image003.jpg)
+![img](./images/clip_image003.jpg)
 
 ```R
 #문제3
