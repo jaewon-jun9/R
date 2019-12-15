@@ -2,7 +2,7 @@
 
 [문제1] 다음과 같이 값이 구성되는 배열을 정의하여 a 라는 변수에 저장한다.
 
-![img](.\images\clip_image002.jpg)
+![img](\images\clip_image002.jpg)
 
  
 
