@@ -47,7 +47,7 @@ rm(a)
 
 [문제2] 다음과 같이 값이 구성되는 데이터프레임을 정의하여 df1 에 저장한다.
 
-![img](F:\code\R\study\practice\images\clip_image004.jpg)
+![img](\images\clip_image004.jpg)
 
 ```R
 #문제2
@@ -61,7 +61,7 @@ df1r
 
 [문제3] 다음과 같이 값이 구성되는 데이터프레임을 정의하여 df2 에 저장한다.
 
-​           ![img](F:\code\R\study\practice\images\clip_image006.jpg)
+​           ![img](\images\clip_image006.jpg)
 
 ```R
 #문제3

@@ -36,7 +36,7 @@ row_min
 
 ​    1,2,3 의 벡터 n1, 4,5,6 의 벡터 n2, 7,8,9 의 벡터 n3 를 이용하여 matrix를 생성한다.
 
-![img](F:\code\R\study\practice\images\clip_image001.jpg)
+![img](\images\clip_image001.jpg)
 
 ```R
 #문제2
@@ -53,7 +53,7 @@ m1
 
 ​    1~9 의 벡터를 이용하여 matrix를 생성하고 출력한다.
 
-![img](F:\code\R\study\practice\images\clip_image003.jpg)
+![img](\images\clip_image003.jpg)
 
 ```R
 #문제3
@@ -65,7 +65,7 @@ m2
 
 [문제4] m2 를 가지고 다음과 같이 값이 구성되는 매트릭스를 정의하여 m3 에 저장하고 출력한다.
 
-​     ![img](F:\code\R\study\practice\images\clip_image005.jpg)
+​     ![img](\images\clip_image005.jpg)
 
 ```R
 #문제4
@@ -78,7 +78,7 @@ m2
 
 [문제5] 다음과 같이 구성 되는 2행 3열 매트릭스 alpha를 생성한 후에
 
-​    ![img](F:\code\R\study\practice\images\clip_image007.jpg)
+​    ![img](\images\clip_image007.jpg)
 
 ​     alpha에 ‘x’, ‘y’, ‘z’ 라는 행을 추가하여 alpha2 를 만들고 출력한다.
 
