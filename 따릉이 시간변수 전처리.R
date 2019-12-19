@@ -4,6 +4,8 @@ d<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
 head(d)
 View(d)
 
+name=c("bike_id","start_stn","end_stn","eq","use_time_o","b_year","b_month","b_day","b_hour","b_min","r_year","r_month","r_day","r_hour","r_min","use_time_m")
+
 #시간변수 다루기 포짓형으로 다룰 수 있다고 배웠으나 데이터 분석용 소스의 경우 텍스트 형식으로 
 #저장되어 있는 경우가 많다. 그러므로 문자열 함수를 통해서 다룰 수도 있다.
 #따릉이 데이터의 경우 시간을 기록하는 변수는 다음 세 가지 형태를 보인다.
@@ -34,6 +36,7 @@ y=d[d$i == "year", ]
 z=d[d$k == "month", ]
 y
 z
+z=d[d$u == 8671, ]
 tail(d[d$a == 2, ])
 summary(d)
 #뒷부분 투처 제거해야 함
@@ -98,6 +101,18 @@ d2$u/60
 #d2$u2=paste(d2$i,d2$k,d2$l,d2$m,d2$n)
 #이용시간 생성
 d$u = as.numeric(as.POSIXct(paste(d$year,d$mon,d$day,d$hour,d$min),format="%Y %m %d %H %M")-as.POSIXct(paste(d$i,d$k,d$l,d$m,d$n),format="%Y %m %d %H %M"))/60
+d$w = as.numeric(format(as.POSIXct(paste(d$i,d$k,d$l),format="%Y %m %d"),"%u"))
+d$we = as.numeric(format(as.POSIXct(paste(d$year,d$mon,d$day),format="%Y %m %d"),"%u"))
+head(d)
+d2$w = weekdays(as.POSIXct(paste(d2$i,d2$k,d2$l),format="%Y %m %d"))
+d2$w[1]
+?weekdays
+
+#요일 숫자로
+d2$w=format(as.POSIXct(paste(d2$i,d2$k,d2$l),format="%Y %m %d"),"%u")
+
+
+
 #초로 들어옴
 #분으로 변경
 #d$u=d$u/60
@@ -109,7 +124,8 @@ d$min=ifelse(d$u<0,(d$n+d$h)%%60,d$min)
 
 ?ifelse
 
-x=d[d$u < 0, ]
+x=d[d$u == 0 & d$e!=d$f, ]
+x
 
 15625*600
 
@@ -166,12 +182,16 @@ View(d)
 d$r = d$V8
 #자리바꾸기
 
-# d[c(5,6)]=d[c(6,5)] #5과 6번을 서로 바꾼다
+d[c(18,17)]=d[c(17,18)] # 서로 바꾼다
+head(d)
 
 summary(d)
 
 table(d$V11)
+namecol=names(d)
 
+names(d)=c("a","e","f","g","h","i","k","l","m","n","w","year","mon","day","hour","min","we","u")  
+ 
 
 d$V11=as.numeric(d$V11)
 #d=d[-2]
@@ -201,7 +221,7 @@ head(d)
 #d=rbind(d,d_1)
 #head(d)
 tail(d)
-write.csv(d, file = "bike05.csv", row.names = F, col.names =  F)
+write.csv(d, file = "bikeW.csv", row.names = F, col.names =  F)
 ?write.csv
 #d=d[-1]
 #d=d[-9]
@@ -211,3 +231,29 @@ write.csv(d, file = "bike05.csv", row.names = F, col.names =  F)
 #d$V16[23412361]=0
 
 #d=d[-24000348,]
+
+
+return_oneway=d[d$g == 0, ]
+return_oneway
+write.csv(return_round, file = "bike_round.csv", row.names = F)
+return_round=d[d$g == 1&d$u!=0&d$u<=135, ]#1분이내 반납제거#1440이하
+return_oneway=d[d$g == 0&d$u!=0&d$u<=400, ]#1분이내 반납제거#1440이하
+
+summary(return_round)
+summary(return_oneway)
+
+return_round=d[d$g == 1&d$u!=0&d$u<=135, ]#1분이내 반납제거#135이하#기준시간 135로 잡음
+boxplot(return_round$u)
+boxplot(return_oneway$u)
+summary(return_round)
+
+head(return_round)
+tail(return_round)
+
+return_oneway=d[d$g == 0&d$u!=0&d$u<=44, ]#1분이내 반납제거#44이하
+boxplot(return_oneway$u)
+head(return_oneway)
+tail(return_oneway)
+
+summary(return_oneway)
+summary(return_round)
