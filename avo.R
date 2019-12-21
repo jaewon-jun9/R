@@ -1,5 +1,3 @@
-?aov
-
 bikeL.aov = aov(use_time_m~ eq*b_weekday, data=bikeL)
 summary(bikeL.aov)
 
@@ -13,6 +11,9 @@ plot(bikeLsub$use_time_m ~ bikeLsub$b_month, main="box plot by month")
 plot(bikeLsub$use_time_m ~ bikeLsub$b_hour, main="box plot by hour")
 
 
-interaction.plot(bikeLsub$use_time_m, bikeLsub$b_weekday, bikeLsub$eq, bty='l', main="interaction effect plot")
-interaction.plot(class.fac, gender.fac, score_stats, bty='l', main="interaction effect plot")
+#interaction.plot(bikeLsub$use_time_m, bikeLsub$b_weekday, bikeLsub$eq, bty='l', main="interaction effect plot")
+#interaction.plot(class.fac, gender.fac, score_stats, bty='l', main="interaction effect plot")
+
+
+
 
