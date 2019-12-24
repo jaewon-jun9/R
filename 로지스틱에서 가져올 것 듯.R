@@ -28,6 +28,12 @@ summary(bikeL)
 bikeLsub=bikeL[(bikeL$use_time_o < 44&bikeL$use_time_o > 0&bikeL$eq == "0"|bikeL$use_time_o < 135&bikeL$use_time_o > 0&bikeL$eq == "1")&bikeL$b_year=="2019"&bikeL$start_stn=="207",]
 summary(bikeLsub)
 
+bikesvm<-svm(eq ~ b_month+b_hour+b_weekday , type="C-classification" ,data = bikeLsub) #b_year+b_month+
+sum(bike$eq != predict(bikesvm, bikeLsub))
+
+biksvm<-ksvm(eq ~ b_month+b_hour+b_weekday , kernel="rbfdot",data = bikeLsub) #b_year+b_month+
+sum(bike$eq != predict(biksvm, bikeLsub))
+
 bikelogit<-glm(eq ~ b_month+b_hour+b_weekday , data = bikeLsub, family = 'binomial') #b_year+b_month+
 summary(bikelogit)
 bikelogit

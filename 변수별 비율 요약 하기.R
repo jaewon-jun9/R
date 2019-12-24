@@ -20,3 +20,62 @@ bikeL$r_weekday=as.factor(bikeL$r_weekday)
 str(bikeL)
 
 stn_names=unique(bikeL$start_stn)
+
+library(dplyr)
+
+summary(bikeL[bikeL$start_stn == "101"&bikeL$r_weekday == "6",])
+
+summary(bikeL[bikeL$start_stn == "101"&bikeL$r_month == "12",])
+
+
+month=arrange(bikeL,b_month)
+
+
+bikeweek = aggregate(r_weekday~start_stn,arrange(bikeL,r_weekday),summary)#정류장별로 요일에 대해 각 요일이 몇 번인지
+bikemonth = aggregate(r_month~start_stn,bikeL,summary)#정류장별로 월에 대해 각 월이 몇 번인지
+bikehour = aggregate(r_hour~start_stn,bikeL,summary)#정류장별로 시에 대해 각 시간대 가 몇 번인지
+
+write.csv(bikeweek, file = "bikeweek.csv", row.names = T)
+write.csv(bikemonth, file = "bikemonth.csv", row.names = T)
+write.csv(bikehour, file = "bikehour.csv", row.names = T)
+
+bikehead=head(bikeL,50)
+
+
+
+bikehead
+stn_names=unique(bikehead$start_stn)
+
+table(bikehead[bikehead$start_stn==stn_names,])
+
+aggregate(r_weekday~start_stn,bikehead,summary)
+
+
+
+bikehead[bikehead$start_stn == 105,]
+
+table(str(a))
+
+
+
+summary(bikehead)
+
+
+
+
+
+library(doBy)
+
+summaryBy(b_month.~start_stn,bikehead)
+
+
+?n
+library(data.table)
+data <- data.table(bikehead)
+data[, n(),by=start_stn]
+
+
+
+
+
+
