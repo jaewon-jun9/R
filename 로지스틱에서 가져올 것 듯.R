@@ -8,8 +8,8 @@ summary(bikeL)
 
 par(mfrow = c(2, 2))
 
-28529/(89004+28529)
 
+#팩터가 제데로 안 잡힌 경우
 bikeL$bike_id=as.factor(bikeL$bike_id)
 bikeL$eq=as.factor(bikeL$eq)
 bikeL$start_stn=as.factor(bikeL$start_stn)
@@ -25,15 +25,11 @@ bikeL$r_weekday=as.factor(bikeL$r_weekday)
 
 summary(bikeL)
 
+#추출
 bikeLsub=bikeL[(bikeL$use_time_o < 44&bikeL$use_time_o > 0&bikeL$eq == "0"|bikeL$use_time_o < 135&bikeL$use_time_o > 0&bikeL$eq == "1")&bikeL$b_year=="2019"&bikeL$start_stn=="207",]
 summary(bikeLsub)
 
-bikesvm<-svm(eq ~ b_month+b_hour+b_weekday , type="C-classification" ,data = bikeLsub) #b_year+b_month+
-sum(bike$eq != predict(bikesvm, bikeLsub))
-
-biksvm<-ksvm(eq ~ b_month+b_hour+b_weekday , kernel="rbfdot",data = bikeLsub) #b_year+b_month+
-sum(bike$eq != predict(biksvm, bikeLsub))
-
+#로지스틱
 bikelogit<-glm(eq ~ b_month+b_hour+b_weekday , data = bikeLsub, family = 'binomial') #b_year+b_month+
 summary(bikelogit)
 bikelogit
@@ -44,6 +40,14 @@ q[2]/(q[1]+q[2])#맞춘 비율
 table(bikeLsub$eq)[2]/(table(bikeLsub$eq)[1]+table(bikeLsub$eq)[2])#투입 비율
 
 plot(bikelogit)
+
+#svm
+bikesvm<-svm(eq ~ b_month+b_hour+b_weekday , type="C-classification" ,data = bikeLsub) #b_year+b_month+
+sum(bike$eq != predict(bikesvm, bikeLsub))
+biksvm<-ksvm(eq ~ b_month+b_hour+b_weekday , kernel="rbfdot",data = bikeLsub) #b_year+b_month+
+sum(bike$eq != predict(biksvm, bikeLsub))
+
+
 
 #table(a==b)
 
