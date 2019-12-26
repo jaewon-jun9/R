@@ -1,16 +1,24 @@
-bike<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
-bikewe<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
-bikemo<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
-bikeho<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
+bike<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv bikemds2.csv
+#bikewe<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
+#bikemo<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
+#bikeho<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
 
 head(bike)
 row.names(bike)=bike$start_stn
-bikedist<-dist(bike[-1,], method = "euclidean")
+bike_train_scale<-as.data.frame(sapply(bike[,-1],scale))
+row.names(bike_train_scale)=bike$start_stn
+
+bikedist<-dist(bike[,-1], method = "euclidean")
+bikedist<-dist(bike_train_scale, method = "euclidean")
+
 two_coord <- cmdscale(bikedist)
 plot(two_coord,type ="n")
 text(two_coord, as.character((bike$start_stn)))
 
-bhcl<-hclust(bikedist^2, method = "single")
+bhcl<-hclust(bikedist)
+clust<-cutree(bhcl, k=30)
+table(clust)
+
 plot(bhcl)
 
 row.names(bikewe)=bike$start_stn

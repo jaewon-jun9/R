@@ -1,0 +1,19 @@
+bike<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv bikemds2.csv
+
+head(bike)
+row.names(bike)=bike$start_stn #정류장 이름 정보가 없어져도 열이름에 남기기 위해
+bike_train_scale<-as.data.frame(sapply(bike[,-1],scale)) #스케일 적용시
+row.names(bike_train_scale)=bike$start_stn #스케일 적용한거에도 정류장 번호 줄 수 있음
+
+bikedist<-dist(bike[,-1], method = "euclidean") #거리 구하기
+bikedist<-dist(bike_train_scale, method = "euclidean") #스케일 적용한 거리 구하기
+two_coord <- cmdscale(bikedist) #플롯으로 보기 위함
+plot(two_coord,type ="n") #이거 먼저 치고
+text(two_coord, as.character((bike$start_stn))) 이거 치고 기다리면 됨
+
+bhcl<-hclust(bikedist) #클러스터 분류해줌
+clust<-cutree(bhcl, k=30) #k 값 조정하면 수준 컷 조정 해보면 암
+
+table(clust)
+plot(bhcl)
+
