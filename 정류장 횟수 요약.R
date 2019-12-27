@@ -3,6 +3,16 @@ bikeL<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
 str(bikeL)
 
 
+bikeL[bikeL$start_stn == 376,]
+bikeremv=bikeL[bikeL$end_stn == 376|bikeL$end_stn == 1301|bikeL$end_stn == 1335|bikeL$end_stn == 1704|bikeL$end_stn == 1817|bikeL$end_stn == 1990|bikeL$end_stn == 2602,]
+write.csv(bikeremv, file = "bikeremv.csv", row.names = T)
+
+bikeL2=bikeL[!(bikeL$end_stn == 376|bikeL$end_stn == 1301|bikeL$end_stn == 1335|bikeL$end_stn == 1704|bikeL$end_stn == 1817|bikeL$end_stn == 1990|bikeL$end_stn == 2602),]
+str(bikeL2)
+
+bikeL=bikeL2
+
+summary(bikeL[bikeL$end_stn == 376|bikeL$end_stn == 1301|bikeL$end_stn == 1335|bikeL$end_stn == 1704|bikeL$end_stn == 1817|bikeL$end_stn == 1990|bikeL$end_stn == 2602,])
 
 bikeL$bike_id=as.factor(bikeL$bike_id)
 bikeL$eq=as.factor(bikeL$eq)
@@ -20,7 +30,10 @@ bikeL$r_weekday=as.factor(bikeL$r_weekday)
 str(bikeL)
 
 stn_names=unique(bikeL$start_stn)
+stn_namee=unique(bikeL$end_stn)
 
+summary(stn_names)
+summary(stn_namee)
 library(dplyr)
 
 
