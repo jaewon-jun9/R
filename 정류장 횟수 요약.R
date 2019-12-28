@@ -2,6 +2,14 @@
 bikeL<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
 str(bikeL)
 
+summary(bikeL)
+
+summary(bikeL[bikeL$start_stn == 113|bikeL$start_stn == 207|bikeL$start_stn == 502,])#113,207,502
+
+a=(494759+168465)/33254342 
+b=3/1576
+
+a/b
 
 bikeL[bikeL$start_stn == 376,]
 bikeremv=bikeL[bikeL$end_stn == 376|bikeL$end_stn == 1301|bikeL$end_stn == 1335|bikeL$end_stn == 1704|bikeL$end_stn == 1817|bikeL$end_stn == 1990|bikeL$end_stn == 2602,]

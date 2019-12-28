@@ -57,3 +57,49 @@ table(rer$cluster)
 write.csv(re$cluster,file = "bikekmeans_end.csv")
 biker$clust=rer$cluster
 write.csv(biker,file = "bike_end_clust.csv")
+
+#클러스터별 평균
+cl1=sapply(((bikeb[bikeb$clust == 1,])[-45])[-1],mean)
+cl2=sapply(((bikeb[bikeb$clust == 2,])[-45])[-1],mean)
+cl3=sapply(((bikeb[bikeb$clust == 3,])[-45])[-1],mean)#113,207,502   207:258041 502:218394   113:186789 
+cl4=sapply(((bikeb[bikeb$clust == 4,])[-45])[-1],mean)
+
+par(mfrow = c(2,2))
+barplot(cl1, ylim = c(0,35000))
+barplot(cl2, ylim = c(0,35000))
+barplot(cl3, ylim = c(0,35000))
+barplot(cl4, ylim = c(0,35000))
+
+barplot(cl1[1:12], ylim = c(0,35000))
+barplot(cl2[1:12], ylim = c(0,35000))
+barplot(cl3[1:12], ylim = c(0,35000))
+barplot(cl4[1:12], ylim = c(0,35000))
+
+barplot(cl1[13:19], ylim = c(0,35000))
+barplot(cl2[13:19], ylim = c(0,35000))
+barplot(cl3[13:19], ylim = c(0,35000))
+barplot(cl4[13:19], ylim = c(0,35000))
+
+barplot(cl1[20:44], ylim = c(0,25000))
+barplot(cl2[20:44], ylim = c(0,25000))
+barplot(cl3[20:44], ylim = c(0,25000))
+barplot(cl4[20:44], ylim = c(0,25000))
+
+barplot(cl1[1:12])
+barplot(cl2[1:12])
+barplot(cl3[1:12])
+barplot(cl4[1:12])
+
+barplot(cl1[13:19])
+barplot(cl2[13:19])
+barplot(cl3[13:19])
+barplot(cl4[13:19])
+
+barplot(cl1[20:44])
+barplot(cl2[20:44])
+barplot(cl3[20:44])
+barplot(cl4[20:44])
+
+
+
+
