@@ -16,8 +16,21 @@ plot(two_coord,type ="n")
 text(two_coord, as.character((bike$start_stn)))
 
 bhcl<-hclust(bikedist)
-clust<-cutree(bhcl, k=30)
+clust<-cutree(bhcl, k=3)
 table(clust)
+
+bkm<-kmeans(bikedist,3) #K Means
+table(bkm$cluster)
+
+bike$cl=bkm$cluster
+
+names(bkm)
+
+summary(bkm)
+
+summary(bike[bike$cl == 1,])
+summary(bike[bike$cl == 2,])
+
 
 plot(bhcl)
 
