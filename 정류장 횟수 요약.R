@@ -2,25 +2,7 @@
 bikeL<- read.csv(file.choose(), header=T ,stringsAsFactors = F) #csv
 str(bikeL)
 
-summary(bikeL)
 
-summary(bikeL[bikeL$start_stn == 113|bikeL$start_stn == 207|bikeL$start_stn == 502,])#113,207,502
-
-a=(494759+168465)/33254342 
-b=3/1576
-
-a/b
-
-bikeL[bikeL$start_stn == 376,]
-bikeremv=bikeL[bikeL$end_stn == 376|bikeL$end_stn == 1301|bikeL$end_stn == 1335|bikeL$end_stn == 1704|bikeL$end_stn == 1817|bikeL$end_stn == 1990|bikeL$end_stn == 2602,]
-write.csv(bikeremv, file = "bikeremv.csv", row.names = T)
-
-bikeL2=bikeL[!(bikeL$end_stn == 376|bikeL$end_stn == 1301|bikeL$end_stn == 1335|bikeL$end_stn == 1704|bikeL$end_stn == 1817|bikeL$end_stn == 1990|bikeL$end_stn == 2602),]
-str(bikeL2)
-
-bikeL=bikeL2
-
-summary(bikeL[bikeL$end_stn == 376|bikeL$end_stn == 1301|bikeL$end_stn == 1335|bikeL$end_stn == 1704|bikeL$end_stn == 1817|bikeL$end_stn == 1990|bikeL$end_stn == 2602,])
 
 bikeL$bike_id=as.factor(bikeL$bike_id)
 bikeL$eq=as.factor(bikeL$eq)
@@ -38,10 +20,7 @@ bikeL$r_weekday=as.factor(bikeL$r_weekday)
 str(bikeL)
 
 stn_names=unique(bikeL$start_stn)
-stn_namee=unique(bikeL$end_stn)
 
-summary(stn_names)
-summary(stn_namee)
 library(dplyr)
 
 
@@ -49,6 +28,25 @@ library(dplyr)
 bikeweekb = aggregate(b_weekday~start_stn,bikeL,summary)#정류장별로 요일에 대해 각 요일이 몇 번인지
 bikemonthb = aggregate(b_month~start_stn,bikeL,summary)#정류장별로 월에 대해 각 월이 몇 번인지
 bikehourb = aggregate(b_hour~start_stn,bikeL,summary)#정류장별로 시에 대해 각 시간대 가 몇 번인지
+
+bikeweeko = aggregate(use_time_m~start_stn+b_month,bikeL,mean)#정류장별로 요일에 대해 각 요일이 몇 번인지
+bikeweeko1 = aggregate(use_time_m~start_stn+b_month,bikeL,summary)#정류장별로 요일에 대해 각 요일이 몇 번인지
+a=table(bikeweeko)
+
+str(a)
+
+
+write.csv(a, file = "a.csv", row.names = T)
+write.csv(bikeweeko, file = "b.csv", row.names = T)
+
+summary(bikeweekb)
+
+b=matrix(bikeweeko$use_time_m, nrow = 1576 ,ncol = 12)
+
+bikemonthb = aggregate(b_month~start_stn,bikeL,summary)#정류장별로 월에 대해 각 월이 몇 번인지
+bikehourb = aggregate(b_hour~start_stn,bikeL,summary)#정류장별로 시에 대해 각 시간대 가 몇 번인지
+
+
 
 write.csv(bikeweekb, file = "bikeweekb.csv", row.names = T)
 write.csv(bikemonthb, file = "bikemonthb.csv", row.names = T)
