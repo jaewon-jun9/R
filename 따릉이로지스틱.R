@@ -41,8 +41,11 @@ cls$start_stn=factor(cls$start_stn)
 bikej= inner_join(cls,bikeL, by ="start_stn")
 
 summary(bikej)
-bikeLsub=bikeL[(bikeL$use_time_o < 44&bikeL$use_time_o > 0&bikeL$eq == "0"|bikeL$use_time_o < 135&bikeL$use_time_o > 0&bikeL$eq == "1")&bikeL$b_year=="2019"&bikeL$start_stn=="207",]
+bikeLsub=bikeL[(bikeL$use_time_o < 44&bikeL$use_time_o > 0&bikeL$eq == "0"|bikeL$use_time_o < 135&bikeL$use_time_o > 0&bikeL$eq == "1")&bikeL$b_year!="2015"&bikeL$b_year!="2019"&bikeL$start_stn=="207",]#2016~2018 207정류장
+bikeLsub2019=bikeL[(bikeL$use_time_o < 44&bikeL$use_time_o > 0&bikeL$eq == "0"|bikeL$use_time_o < 135&bikeL$use_time_o > 0&bikeL$eq == "1")&bikeL$b_year=="2019"&bikeL$start_stn=="207",]
+
 summary(bikeLsub)
+summary(bikeLsub2019)
 
 bikej[(bikej$use_time_o < 44&bikej$use_time_o > 0&bikej$eq == "0"|bikej$use_time_o < 135&bikej$use_time_o > 0&bikej$eq == "1")&bikej$b_year=="2019"&bikej$start_stn=="1210",]
 bikej[(bikej$use_time_o < 44&bikej$use_time_o > 0&bikej$eq == "0"|bikej$use_time_o < 135&bikej$use_time_o > 0&bikej$eq == "1")&bikej$b_year=="2019"&bikej$start_stn=="2102",]
@@ -58,11 +61,36 @@ summary(bikelogit)
 bikelogit
 
 
+
+#추출예측
 library(caret)
-data(iris)
-idx<-createDataPartition(bikeLsub$eq , p=0.7, list=F)
+idx<-createDataPartition(bikeLsub2019$eq , p=0.01534, list=F)
+bikeL_test<-bikeLsub2019[idx,]
+summary(bikeL_test)
+a=predict(bikelogit,bikeL_test,type = "response")>=0.5
+b=bikeL_test$eq==1
+
+table(a==b)
+
+
+1-0.99845
+
+43274/(21869+43274)
+#전체예측
+a=predict(bikelogit,bikeLsub2019,type = "response")>=0.5
+b=bikeLsub2019$eq==1
+
+table(a==b)
+
+
+43274/(21869+43274)
+
+
+
+
+
 iris_train<-iris[idx,]
-iris_test<-iris[-idx,]
+
 table(iris_train$Species)
 table(iris_test$Species)
 naive.result<-naiveBayes(iris_train, iris_train$Species,laplace = 1)
